@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+<link rel="stylesheet" href="tree/css/demo.css" type="text/css">
+	<link rel="stylesheet" href="tree/css/zTreeStyle/zTreeStyle.css" type="text/css">
+	 <link rel="stylesheet" href="css/ditu.css" type="text/css">
+
+	
+  	<style type="text/css">
+	body, html,#allmap {width: 800px;height: 500px;overflow: hidden;margin:0;font-family:"微软雅黑";}
+	</style>
+  <title>Document</title>
+ </head>
+ <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=4yZc2wBOaRWDulfTBHT0rvnO"></script>
+ <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript" src="tree/js/jquery.ztree.core.js"></script>
+ <script language=javascript src="function.js"></script>
+
+
+<script>
+$(document).ready(function(){
+	 $.fn.zTree.init($("#treeDemo"), setting);
+	 initMap();//初始化地图
+	// getJsonData(0,30,"170");//获取数据绘制点
+	 //showAll(0,20);//绘点
+	 $("#search").click(function()
+	 {
+		 map.clearOverlays();//每次清除上一次的地图标注点
+		 var keyword=$("#keyword").val()
+		 alert($("#citySel").val())
+		// var goodtype=$("#")
+		var goodstype=$("#citySel").val()
+		 getJsonData(0,30,keyword,goodstype);//获取数据绘制点
+	 })
+});
+</script>
+ <body>
+ <div id="container">
+       <div id="left">
+			<!--类别检索框-->
+			<div>
+						<div id="menuContent" class="menuContent" style="display:none; position: absolute;">
+							<ul id="treeDemo" class="ztree" style="margin-top:0; width:160px;"></ul>
+						</div>
+						<div>&nbsp;&nbsp;城市：<input id="citySel" type="text" readonly value="" style="width:120px;"/></div>
+					&nbsp;<a id="menuBtn" href="#" onclick="showMenu(); return false;">选择</a>
+					
+			</div>
+			 <div>关键字: <input type="text" name="firstname" id="keyword"><br> 
+			 <button id="search">检索</button></div>
+		</div>
+
+		<div id="right" style="border:1px solid red">
+			 <div id="allmap"></div>
+			 
+		</div>
+</div>
+ </body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>派单系统</title>
+	<link rel="stylesheet" type="text/css" href="themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="css/demo.css">
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+</head>
+<body class="easyui-layout">
+	<div data-options="region:'north',border:false" style="height:60px;background:#B3DFDA;padding:10px">派单系统</div>
+	<div data-options="region:'west',split:true,title:'派单系统'" style="width:200px;padding:10px;">
+		
+		<!--派单列表<br>-->
+		<!--填写订单-->
+		<div class="easyui-panel" title="输入待配送客户名称列表" style="width:100%;max-width:400px;padding:10px 10px;">
+		        <form id="ff" class="easyui-form" method="post" data-options="novalidate:true">
+		            <div style="margin-bottom:20px">
+		                <input id='datalist1' class="easyui-textbox" name="message" style="width:100%;height:300px" data-options="label:'Message:',multiline:true">
+		            </div>
+		        </form>
+		        <div style="text-align:center;padding:5px 0">
+		            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()" style="width:140px" id="qingqiu">生成订单分布地图</a>
+					<a href="#" class="easyui-linkbutton" style="width:140px" id="search">检索订单</a>
+		            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()" style="width:80px">清除</a>
+		        </div>
+				<h3>总计订单：</h3>230<br>
+				<h3>已派订单：</h3>230<br>
+			    <h3>未派订单：</h3>230<br>
+				
+		    </div>
+		<!--填写订单结束-->
+		<div id="window1"></div>
+		
+	</div>
+	<div data-options="region:'east',split:true,collapsed:false,title:'派单结果'" style="width:300px;padding:4px;">
+		<input id="num" type="text"></input>
+		<!--派单结果开始-->
+		<h2>配送人员客服分配结果</h2>
+			<p></p>
+			<div style="margin:20px 0 10px 0;"></div>
+			<div class="easyui-accordion" data-options="multiple:true" style="width:280px;height:600px;">
+				<div title="张三配送员" data-options="iconCls:'icon-ok'" style="overflow:auto;padding:10px;">
+					<ul class="easyui-datalist" title="配送客户列表" lines="true" style="width:260px;height:300px">
+					        <li value="AL">F1006便民超市</li>
+							<li value="AL">F1006便民超市</li>
+							<li value="AL">F1006便民超市</li>
+							<li value="AL">F1006便民超市</li>
+							<li value="AL">F1006便民超市</li>
+							<li value="AL">F1006便民超市</li>
+							<li value="AL">F1006便民超市</li>
+							<li value="AL">F1006便民超市</li>
+							<li value="AL">F1006便民超市</li>
+							<li value="AL">F1006便民超市</li>
+							<li value="AL">F1006便民超市</li>
+							<li value="AL">F1006便民超市</li>
+					       
+					      </ul>
+				</div>
+				<div title="Java" style="padding:10px;">
+					<p>Java (Indonesian: Jawa) is an island of Indonesia. With a population of 135 million (excluding the 3.6 million on the island of Madura which is administered as part of the provinces of Java), Java is the world's most populous island, and one of the most densely populated places in the world.</p>
+				</div>
+				<div title="C#" style="padding:10px;">
+					<p>C# is a multi-paradigm programming language encompassing strong typing, imperative, declarative, functional, generic, object-oriented (class-based), and component-oriented programming disciplines.</p>
+				</div>
+				<div title="Ruby" style="padding:10px;">
+					<p>A dynamic, reflective, general-purpose object-oriented programming language.</p>
+				</div>
+				<div title="Fortran" style="padding:10px;">
+					<p>Fortran (previously FORTRAN) is a general-purpose, imperative programming language that is especially suited to numeric computation and scientific computing.</p>
+				</div>
+			</div>
+		<!--派单结果结束-->
+		
+	</div>
+	<div data-options="region:'south',border:false" style="height:50px;background:#A9FACD;padding:10px;">北京家家思蓝信息技术有限公司</div>
+	<div data-options="region:'center',title:'地图'"></div>
+</body>
+</html>
+
+<script>
+		function submitForm(){
+		//$('#ff').form('submit');
+		}
+		function clearForm(){
+			$('#ff').form('clear');
+		}
+		$("#qingqiu").click(function(){
+			console.log("点击获取数据了")
+		  $.post("http://www.ermm.cn/ermm10/json_projectInfoSearch_client.asp",
+		  {
+		    start:0,
+			limit:200,
+		    keyValue:""
+		  },
+		  function(data,status){
+		    alert("Data: " + data + "\nStatus: " + status);
+		  });
+		});
+		//获取订单
+		$("#search").click(function(){
+			console.log("点击获取数据了")
+			var tex = $("#datalist1").val()
+		  $.post("http://www.ermm.cn/ermm10/json_projectInfoSearch_client.asp",
+		  {
+		    start:0,
+			limit:200,
+		    keyValue:tex
+		  },
+		  function(data,status){
+		    alert("Data: " + data + "\nStatus: " + status);
+		  });
+		});
+		//页面加载后执行函数
+		$(document).ready(function(){
+			$.messager.progress({
+				title:'测试介科狗',
+				text:'我是进度条内容'
+				
+			})
+			//$.messager.alert("测试看到JFK的JFK",'woshikniaisfld','question')
+			//$.messager.confirm('title','确认善除呢',function(){alert('dddd')})
+			$("#window1").window({
+				title:'窗口',
+				width:100%,
+				height:200
+				
+				
+			})
+			$("#num").numberbox(
+			{
+				min:0,
+				max:12,
+				missingmessage:"年你不"
+			})
+			
+		})
+</script>

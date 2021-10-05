@@ -1,0 +1,177 @@
+<!doctype html>
+<html class="no-js fixed-layout">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>MAP</title>
+  <meta name="description" content="这是一个 index 页面">
+  <meta name="keywords" content="index">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <link rel="icon" type="image/png" href="amazeui/assets/i/favicon.png">
+  <link rel="apple-touch-icon-precomposed" href="amazeui/assets/i/app-icon72x72@2x.png">
+  <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+  <link rel="stylesheet" href="amazeui/assets/css/amazeui.min.css"/>
+  <link rel="stylesheet" href="amazeui/assets/css/admin.css">
+  <link rel="stylesheet" href="tree/css/demo.css" type="text/css">
+	<link rel="stylesheet" href="tree/css/zTreeStyle/zTreeStyle.css" type="text/css">
+
+  <style>
+    .footer p {
+      color: #7f8c8d;
+      margin: 0;
+      padding: 15px 0;
+      text-align: center;
+      background: #2d3e50;
+    }
+	#content{
+	margin-top:50px;
+	}
+.clearfix:after{
+content:"";
+display:block;
+visibility:hidden;
+clear:both;
+height:0;
+}
+.clearfix{ /* 为了照顾ie6浏览器*/
+zoom:1;
+}
+	
+	 
+	#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";}
+
+  </style>
+</head>
+<body>
+<header class="am-topbar am-topbar-inverse admin-header">
+  <div class="am-topbar-brand">
+    <strong>网点地图管理系统</strong> <small>VIP</small>
+  </div>
+
+  <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only" data-am-collapse="{target: '#topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>
+
+  <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
+
+    <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
+      <li><a href="javascript:;"><span class="am-icon-envelope-o"></span> 收件箱 <span class="am-badge am-badge-warning">5</span></a></li>
+      <li class="am-dropdown" data-am-dropdown>
+        <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
+          <span class="am-icon-users"></span> 管理员 <span class="am-icon-caret-down"></span>
+        </a>
+        <ul class="am-dropdown-content">
+          <li><a href="#"><span class="am-icon-user"></span> 资料</a></li>
+          <li><a href="#"><span class="am-icon-cog"></span> 设置</a></li>
+          <li><a href="#"><span class="am-icon-power-off"></span> 退出</a></li>
+        </ul>
+      </li>
+      <li class="am-hide-sm-only"><a href="javascript:;" id="admin-fullscreen"><span class="am-icon-arrows-alt"></span> <span class="admin-fullText">开启全屏</span></a></li>
+    </ul>
+  </div>
+</header>
+
+
+
+
+<div class="am-g"  id="content" style="border:1px solid #CCCCCC; padding:0px;">
+
+  <!--search window-->
+  <div id="left" class="am-u-sm-3 " style=" border:1px solid #CCCCCC;height:400px;margin:0px;padding:0px;">
+  	<!--start-->
+				
+									
+	<h1 style=" background-color:#CCCCCC; color: #FFFFFF; font-family:">信息查询面版</h1>
+				<div class="am-form-group am-form-group-sm" style="padding:15px;">
+				     
+					 <div class="am-form-group am-form-group-sm">
+				<input  class="am-form-field am-input-sm" id="citySel" type="text" readonly value=""  placeholder="城市"/><a id="menuBtn" href="#" onClick="showMenu(); return false;">选择</a>
+					  </div>
+					 
+					 <div class="am-form-group">
+						 <select class=" am-input-lg">
+						  <option value="">VIP客户</option>
+						  <option value="">普通客户</option>
+						</select>
+					  </div>
+					  <div class="am-form-group">
+						<input type="text" id="keyword" class="am-form-field am-input-sm" placeholder="关键词">
+					  </div>
+					   <p><button type="button" class="am-btn am-btn-primary" id="search">检索</button></p>
+				</div>
+				
+     <!--end-->
+        
+  	
+  </div>
+  <!--search window end-->
+  <!--map start--> 
+	  <div class="am-u-sm-9" id="right_map" style="padding:0px;">
+		<div id="allmap"></div>
+	  </div>
+  <!--map end-->
+  
+  
+</div>
+
+
+
+<div id="menuContent" class="menuContent" style="display:none; position: absolute;">
+							<ul id="treeDemo" class="ztree" style="margin-top:0; width:160px;"></ul>
+</div>
+<footer class="footer">
+  <p>© 2014 <a href="http://www.yunshipei.com" target="_blank">AllMobilize, Inc.</a> Licensed under <a
+      href="http://opensource.org/licenses/MIT" target="_blank">MIT license</a>. by the AmazeUI Team.</p>
+</footer>
+<!--[if lt IE 9]>
+<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+
+<!--[if (gte IE 9)|!(IE)]><!-->
+<script src="amazeui/assets/js/jquery.min.js"></script>
+<!--<![endif]-->
+<script src="amazeui/assets/js/amazeui.min.js"></script>
+<script src="amazeui/assets/js/app.js"></script>
+ <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=4yZc2wBOaRWDulfTBHT0rvnO"></script>
+ <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript" src="tree/js/jquery.ztree.core.js"></script>
+ <script language=javascript src="function.js"></script>
+
+</body>
+</html>
+<script>
+
+ 
+ $(document).ready(function(){
+ $.fn.zTree.init($("#treeDemo"), setting);
+    //alert()
+	//alert($(document).height())
+    //alert($(document.body).height()- $("header").height()-$("footer").height())
+	var contend_height
+	//alert($("#search").height())
+	contend_height=$(window).height()- $("header").height()-$("footer").height();
+	 $("#content").height(contend_height)
+	  $("#right_map").height(contend_height);;
+	 
+	 $("#allmap").height($("#right_map").height())
+	 $("#allmap").width($("#right_map").width())
+	// alert($("#search").width())
+	  initMap();//初始化地图
+	  //检索POI开始
+	  	 $("#search").click(function()
+		 {
+			 map.clearOverlays();//每次清除上一次的地图标注点
+			 var keyword=$("#keyword").val()
+			// alert($("#citySel").val())
+			// var goodtype=$("#")
+			var goodstype=$("#citySel").val()
+			 getJsonData(0,30,keyword,goodstype);//获取数据绘制点
+		 })
+	  
+	  //检索POI结束
+  });
+
+ 
+</script>

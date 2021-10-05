@@ -1,0 +1,41 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+<style type="text/css">
+body, html,#allmap {width: 400;height: 300;overflow: hidden;margin:0;}
+</style>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.4"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/library/CityList/1.2/src/CityList_min.js"></script>
+
+
+
+<title>根据关键字本地搜索</title>
+</head>
+<body>
+<div id="allmap"></div>
+<div style="width:600px;height:300px;margin-bottom:20px;border:1px solid gray;overflow-y:auto;" id="city_container">
+
+</body>
+</html>
+<script type="text/javascript">
+
+// 百度地图API功能
+var map = new BMap.Map("allmap");            // 创建Map实例
+map.centerAndZoom(new BMap.Point(110.32259, 25.24955), 11);
+var local = new BMap.LocalSearch(map, {
+  renderOptions:{map: map}
+});
+local.search("婚纱摄影");
+
+// 创建CityList对象，并放在city_container节点内
+var myCl = new BMapLib.CityList({"container" : "city_container", "map" : map});
+
+// 给城市点击时，添加切换地图视野的操作
+myCl.addEventListener("cityclick", function(e) {
+	alert("当前城市是"+e.name);
+	// 由于此时传入了map对象，所以点击的时候会自动帮助地图定位，不需要下面的地图视野切换语句
+	// map.centerAndZoom(e.center, e.level);
+});
+
+</script>

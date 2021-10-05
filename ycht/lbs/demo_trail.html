@@ -1,0 +1,181 @@
+<!doctype html>
+<html class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>定位服务</title>
+  <meta name="description" content="这是一个 table 页面">
+  <meta name="keywords" content="table">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <link rel="icon" type="image/png" href="assets/i/favicon.png">
+  <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
+  <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+  <link rel="stylesheet" href="assets/css/amazeui.min.css"/>
+  <link rel="stylesheet" href="assets/css/admin.css">
+  <script type="text/javascript" src="http://api.map.baidu.com/library/LuShu/1.2/src/LuShu_min.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=4yZc2wBOaRWDulfTBHT0rvnO"></script>
+</head>
+<body>
+<!--[if lte IE 9]>
+<p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，Amaze UI 暂不支持。 请 <a href="http://browsehappy.com/" target="_blank">升级浏览器</a>
+  以获得更好的体验！</p>
+<![endif]-->
+
+
+<div class="am-cf admin-main">
+  <!-- sidebar start -->
+
+  <!-- sidebar end -->
+
+  <!-- content start -->
+  <div class="admin-content">
+
+    <div class="am-cf am-padding">
+      <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">轨迹查询</strong> / <small>gps</small></div>
+    </div>
+
+    <div class="am-g">
+      <div class="am-u-sm-12 am-u-md-3">
+       		 <div class="am-form-group">
+          <select data-am-selected="{btnSize: 'md'}">
+            <option value="option1">用户账号</option>
+            
+         
+          </select>
+        </div>
+	   
+      </div>
+      <div class="am-u-sm-12 am-u-md-3">
+        <div class="am-form-group">
+          	<div class="am-input-group am-datepicker-date" data-am-datepicker="{format: 'yyyy-mm-dd'}">
+			   <span class="am-input-group-btn am-datepicker-add-on">
+				<button class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span> </button>
+			  </span>
+			  <input type="text"  id="timeup" class="am-form-field" placeholder="选择日期" readonly>
+			 
+			</div>
+        </div>
+      </div>
+	  <div class="am-u-sm-12 am-u-md-2">
+	        <div class="am-input-group">
+          	
+         	 <span class="am-input-group-btn">
+            <button class="am-btn am-btn-default" type="button" id="search">轨迹查询</button>
+          	</span>
+       	 	</div>
+	  </div>
+      <div class="am-u-sm-12 am-u-md-4">
+        <!--占位符-->
+      </div>
+    </div>
+
+    <div class="am-g">
+      <div class="am-u-sm-12">
+       	<div  id="allmap" style="border:1px solid #000000; width:100%;height:700px;"></div>
+      </div>
+
+    </div>
+  </div>
+  <!-- content end -->
+</div>
+
+<a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
+
+<!--<footer>
+  <hr>
+  <p class="am-padding-left">© 2017 AllMobilize, Inc. Licensed under MIT license.</p>
+</footer>-->
+
+<!--[if lt IE 9]>
+<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+
+<!--[if (gte IE 9)|!(IE)]><!-->
+<script src="assets/js/jquery.min.js"></script>
+<!--<![endif]-->
+<script src="assets/js/amazeui.min.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="trail.js"></script>
+</body>
+</html>
+<script>
+$(document).ready(function(){
+ 
+  iniMap();//绘制地图
+  //获取用户列表，并加载到下拉菜单
+  url="http://www.ermm.cn/ps/json_tree.asp"
+	//alert(url)
+	jQuery.post(url,function(data,status){
+	//alert(data)
+	
+	//获取经纬度
+	var jsonObj=eval('(' + data + ')');
+	//alert(jsonObj.length)
+
+				//var jingdu,weidu,timeup
+				//var detail=jsonObj.root;
+				//gps_points=[];
+				users=[]
+			//    map.clearOverlays(); 
+				for(i=0;i<jsonObj.length;i++)
+				{
+				users[i]=jsonObj[i].text;
+				$("select").append("<option value="+users[i]+">"+users[i]+"</option>")
+				//alert(users[i])
+					
+				}						
+	
+	});
+  //结束
+  	  //检索轨迹开始
+	  	 $("#search").click(function()
+		 {
+			 map.clearOverlays();//每次清除上一次的地图标注点
+			 //var username=$("#keyword").val()
+			// alert($("#citySel").val())
+			// var goodtype=$("#")
+			 var timeup=$("#timeup").val()
+			//alert(timeup)
+			//getJsonData(0,30,keyword,goodstype);//获取数据绘制点
+			var username=$("option:selected").val();
+			if (username=="option1" || timeup=="")
+			{
+				alert("您没有选择用户或日期")
+			}
+			else
+			 {
+				 drawTrail(username,timeup)
+			 }
+			//alert(username)
+			
+			//drawTrail(username,timeup)
+			//drawTrail('a','2017-3-11')
+		 })
+	
+	  
+	  //检索轨迹结束
+ //填充user列表
+
+	
+	
+	
+
+	//var obj=jQuery.parseJSON('{ name: "CodePlayer", age: 1 }');
+	//alert(jsonObj.root[0].username);
+	//btnAddRow();
+	//alert(obj)
+ });
+ 
+ 
+  
+
+ //结束
+ 
+
+
+</script>
+

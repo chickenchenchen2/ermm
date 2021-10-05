@@ -1,0 +1,20 @@
+#container{
+	width:1300px;
+	height:800px;
+	border:1px solid red;
+
+}
+
+#left{
+float:left;
+width:300px;
+height:800px;
+border:2px solid red;
+
+}
+#right{
+	float:left;
+	width:600px;
+	height:800px;
+	border:2px solid red;
+}
