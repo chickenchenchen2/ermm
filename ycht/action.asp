@@ -1,5 +1,5 @@
 ﻿<%@ CODEPAGE=65001 %>
-
+<!--测试文件-->
 <!-- #include file="conn.asp" -->
 <%
 Session.CodePage=65001
